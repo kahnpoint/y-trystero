@@ -2,6 +2,8 @@
 
 _(Not affiliated with either [Yjs](https://github.com/yjs/yjs) or [Trystero](https://github.com/dmotz/trystero))_
 
+**⚠️ Early Development, Untested ⚠️**
+
 Use Trystero as the backend for Yjs!
 This allows for using decentralized signaling servers (currently Bittorrent, IPFS, Nostr, or MQTT) to sync Yjs documents.
 
