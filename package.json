@@ -1,0 +1,31 @@
+{
+  "name": "y-trystero",
+  "description": "Unofficial Yjs Trystero Provider",
+  "main": "dist/y-trystero.umd.js",
+  "module": "dist/y-trystero.es.js",
+  "fmt": "prettier --write .",
+  "build": "vite build --outDir dist --emptyOutDir",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kahnpoint/y-trystero.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "fmt": "prettier --write .",
+    "build": "vite build --outDir dist --emptyOutDir",
+    "publish": "npm run build && npm publish"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "trystero": "^0.18.0",
+    "yjs": "^13.6.14"
+  }
+}
