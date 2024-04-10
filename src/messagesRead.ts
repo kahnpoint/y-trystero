@@ -1,7 +1,6 @@
 import * as decoding from "lib0/decoding";
 import * as encoding from "lib0/encoding";
-import {awarenessProtocol, syncProtocol} from '../protocols'
-
+import { awarenessProtocol, syncProtocol } from "../protocols";
 
 import { MessageType } from "./MessageType";
 import { Room } from "./Room";

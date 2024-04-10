@@ -5,8 +5,7 @@ import * as random from "lib0/random";
 
 import * as Y from "yjs"; // eslint-disable-line
 
-import {awarenessProtocol, syncProtocol} from '../protocols'
-
+import { awarenessProtocol, syncProtocol } from "../protocols";
 
 import { MessageType } from "./types";
 import { TrysteroProvider } from "./TrysteroProvider";

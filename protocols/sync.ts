@@ -2,9 +2,9 @@
  * @module sync-protocol
  */
 
-import * as encoding from 'lib0/encoding'
-import * as decoding from 'lib0/decoding'
-import * as Y from 'yjs'
+import * as encoding from "lib0/encoding";
+import * as decoding from "lib0/decoding";
+import * as Y from "yjs";
 
 //type StateMap = Map<number, number>;
 
@@ -34,89 +34,85 @@ import * as Y from 'yjs'
  */
 
 export enum SyncMessageType {
-	Step1 = 0,
-	Step2 = 1,
-	Update = 2,
-	Done = 3,
+  Step1 = 0,
+  Step2 = 1,
+  Update = 2,
+  Done = 3,
 }
 
-type StateVector = Uint8Array
-type UpdateVector = Uint8Array
+type StateVector = Uint8Array;
+type UpdateVector = Uint8Array;
 
 // Create a sync step 1 message based on the state of the current shared document.
 export const writeSyncStep1 = (encoder: encoding.Encoder, doc: Y.Doc) => {
-	encoding.writeVarUint(encoder, SyncMessageType.Step1)
-	const sv = Y.encodeStateVector(doc)
-	encoding.writeVarUint8Array(encoder, sv)
-}
+  encoding.writeVarUint(encoder, SyncMessageType.Step1);
+  const sv = Y.encodeStateVector(doc);
+  encoding.writeVarUint8Array(encoder, sv);
+};
 
 export const writeSyncStep2 = (
-	encoder: encoding.Encoder,
-	doc: Y.Doc,
-	encodedStateVector: StateVector
+  encoder: encoding.Encoder,
+  doc: Y.Doc,
+  encodedStateVector: StateVector,
 ) => {
-	encoding.writeVarUint(encoder, SyncMessageType.Step2)
-	encoding.writeVarUint8Array(
-		encoder,
-		Y.encodeStateAsUpdate(doc, encodedStateVector)
-	)
-}
+  encoding.writeVarUint(encoder, SyncMessageType.Step2);
+  encoding.writeVarUint8Array(
+    encoder,
+    Y.encodeStateAsUpdate(doc, encodedStateVector),
+  );
+};
 
 // Read SyncStep1 message and reply with SyncStep2.
 export const readSyncStep1 = (
-	decoder: decoding.Decoder,
-	encoder: encoding.Encoder,
-	doc: Y.Doc
+  decoder: decoding.Decoder,
+  encoder: encoding.Encoder,
+  doc: Y.Doc,
 ) => {
-	writeSyncStep2(encoder, doc, decoding.readVarUint8Array(decoder))
-}
+  writeSyncStep2(encoder, doc, decoding.readVarUint8Array(decoder));
+};
 
 // Read and apply Structs and then DeleteStore to a y instance.
 export const readSyncStep2 = (
-	decoder: decoding.Decoder,
-	doc: Y.Doc,
-	transactionOrigin: any
+  decoder: decoding.Decoder,
+  doc: Y.Doc,
+  transactionOrigin: any,
 ) => {
-	try {
-		Y.applyUpdate(
-			doc,
-			decoding.readVarUint8Array(decoder),
-			transactionOrigin
-		)
-	} catch (error) {
-		// This catches errors that are thrown by event handlers
-		console.error('Caught error while handling a Yjs update', error)
-	}
-}
-export const readUpdate = readSyncStep2
+  try {
+    Y.applyUpdate(doc, decoding.readVarUint8Array(decoder), transactionOrigin);
+  } catch (error) {
+    // This catches errors that are thrown by event handlers
+    console.error("Caught error while handling a Yjs update", error);
+  }
+};
+export const readUpdate = readSyncStep2;
 
 export const writeUpdate = (
-	encoder: encoding.Encoder,
-	update: UpdateVector
+  encoder: encoding.Encoder,
+  update: UpdateVector,
 ) => {
-	encoding.writeVarUint(encoder, SyncMessageType.Update)
-	encoding.writeVarUint8Array(encoder, update)
-}
+  encoding.writeVarUint(encoder, SyncMessageType.Update);
+  encoding.writeVarUint8Array(encoder, update);
+};
 
 export const readSyncMessage = (
-	decoder: decoding.Decoder,
-	encoder: encoding.Encoder,
-	doc: Y.Doc,
-	transactionOrigin: any
+  decoder: decoding.Decoder,
+  encoder: encoding.Encoder,
+  doc: Y.Doc,
+  transactionOrigin: any,
 ) => {
-	const messageType = decoding.readVarUint(decoder)
-	switch (messageType) {
-		case SyncMessageType.Step1:
-			readSyncStep1(decoder, encoder, doc)
-			break
-		case SyncMessageType.Step2:
-			readSyncStep2(decoder, doc, transactionOrigin)
-			break
-		case SyncMessageType.Update:
-			readUpdate(decoder, doc, transactionOrigin)
-			break
-		default:
-			throw new Error('Unknown message type')
-	}
-	return messageType
-}
+  const messageType = decoding.readVarUint(decoder);
+  switch (messageType) {
+    case SyncMessageType.Step1:
+      readSyncStep1(decoder, encoder, doc);
+      break;
+    case SyncMessageType.Step2:
+      readSyncStep2(decoder, doc, transactionOrigin);
+      break;
+    case SyncMessageType.Update:
+      readUpdate(decoder, doc, transactionOrigin);
+      break;
+    default:
+      throw new Error("Unknown message type");
+  }
+  return messageType;
+};

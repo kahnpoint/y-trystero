@@ -5,7 +5,15 @@ _(Not affiliated with either [Yjs](https://github.com/yjs/yjs) or [Trystero](htt
 Use Trystero as the backend for Yjs!
 This allows for using decentralized signaling servers (currently Bittorrent, IPFS, Nostr, or MQTT) to sync Yjs documents.
 
-Usage is similar to the WebRTC provider:
+## Installation
+
+```bash
+npm install y-trystero
+```
+
+## Usage
+
+Usage is nearly identical to the WebRTC provider, which it is based on:
 
 ```javascript
 import * as Y from "yjs";
@@ -20,10 +28,10 @@ const provider = new TrysteroProvider("your-room-name", ydoc, {
 const yarray = ydoc.get("array", Y.Array);
 ```
 
-The options support two additional optional fields:
+However, the options support two additional fields:
 
 - joinRoom: an alternative Trystero joinRoom function (all 4 are reexported in the `y-trystero` package)
-- appId: passed through to Trystero
+- appId: the application's name, passed through to the Trystero joinRoom function
 
 ```javascript
 import { joinRoom } from "y-trystero/ipfs";
@@ -34,6 +42,7 @@ const provider = new TrysteroProvider("your-room-name", ydoc, {
 });
 ```
 
-TODO: 
+TODO:
+
 - [ ] Tests
 - [ ] Demo
