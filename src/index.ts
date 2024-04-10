@@ -1,4 +1,4 @@
-import { TrysteroProvider } from "./Provider";
+import { TrysteroProvider } from "./TrysteroProvider";
 
 export { TrysteroProvider };
 

@@ -33,3 +33,7 @@ const provider = new TrysteroProvider("your-room-name", ydoc, {
   joinRoom: joinRoom,
 });
 ```
+
+TODO: 
+- [ ] Tests
+- [ ] Demo

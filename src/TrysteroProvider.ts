@@ -4,7 +4,7 @@ import { ObservableV2 } from "lib0/observable";
 import * as promise from "lib0/promise";
 import * as random from "lib0/random";
 import * as Y from "yjs"; // eslint-disable-line
-import { awarenessProtocol } from "@/trust/protocols";
+import {awarenessProtocol} from '../protocols'
 import * as cryptoutils from "./cryptoutils";
 import { Room } from "./Room";
 //import { SignalingConn } from './archive/SignalingConn'

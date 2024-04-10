@@ -6,7 +6,7 @@ import * as cryptoutils from "./cryptoutils";
 import { MessageType, PeerId } from "./types";
 import { Room } from "./Room";
 //import { TrysteroConn } from './TrysteroConn'
-import { TrysteroProvider } from "./Provider";
+import { TrysteroProvider } from "./TrysteroProvider";
 ////import { publishSignalingMessage } from './checkIsSynced'
 //import { signalingConns } from './connectionMaps'
 import { TargetPeers } from "trystero";
